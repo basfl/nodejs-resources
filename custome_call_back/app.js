@@ -25,10 +25,10 @@ getProductsFromFile(products => {
     console.log(products)
 
 })
-console.log("dont wait go ahead till we ger result from getProductsFromFile")
+console.log("dont wait go ahead until we get result from getProductsFromFile")
 findOne("123", product => {
     console.log("got result back fromfindOne")
     console.log(product)
 })
-console.log("dont wait go ahead till we ger result from findOne")
+console.log("dont wait go ahead until we get result from findOne")
 
