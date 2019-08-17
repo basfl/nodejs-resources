@@ -7,9 +7,19 @@ exports.getAll = (req, res, next) => {
         products.forEach(product => {
             res.send(product)
         });
-       
+
     }).catch(err => {
         console.log(err)
     })
-    
+
+}
+exports.getOne = (req, res, next) => {
+    const productId = req.params.id
+    Product.getOne(productId).then(product => {
+        console.log("one", product)
+        res.send(product)
+    }).catch(err => {
+        console.log(err)
+    })
+
 }

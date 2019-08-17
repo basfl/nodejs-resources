@@ -22,17 +22,29 @@ class Product {
     static fetchAll() {
         const db = getDb();
         return db
-          .collection('products')
-          .find()
-          .toArray()
-          .then(products => {
-            console.log(products);
-            return products;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+            .collection('products')
+            .find()
+            .toArray()
+            .then(products => {
+                console.log(products);
+                return products;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+    static getOne(prodId) {
+        const db = getDb()
+        return db.collection('products')
+            .find({ "_id": new mongodb.ObjectID(prodId) })
+            .next().
+            then(product => {
+                return product
+            }).catch(err => {
+                console.log(err)
+            })
+
+    }
 }
 
 module.exports = Product
