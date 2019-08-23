@@ -32,17 +32,3 @@ initialize(p).then(data => {
     console.log("^^^^^^^^")
 })
 
-
-
-
-//readingPromise(path.join(__dirname, 'data', 'data.json'))
-//.then(data=>{
-//})
-
-
-// readingPromise(path.join(__dirname, 'data', 'data.json')).then(data=>{
-//     console.log("***data",data)
-// }).catch(err=>{
-//     console.log("**error",err);
-
-// })
