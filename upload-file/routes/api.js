@@ -1,21 +1,27 @@
 const express = require("express");
+const auth = require('../middle-ware/isAuth');
 const routes = express.Router();
 
 routes.get("/", (req, res, next) => {
-    console.log("inside");
-    res.render('index');
+    console.log("inside", req.session.isLoggedIn = true);
+    res.render('login');
 
 });
 
-routes.post("/action", (req, res, next) => {
-    console.log("inside");
+routes.post("/login", (req, res, next) => {
+    console.log("****", req.body.user);
+    console.log("****", req.body.pass);
+    if (req.body.user === "root" && req.body.pass == "admin") {
+        console.log("hey")
+        req.session.isLoggedIn =true;
+        res.render("index");
+    }
+})
+
+routes.post("/action", auth, (req, res, next) => {
+    console.log("inside", req.session.isLoggedIn = true);
     const name = req.body.name;
     const image = req.file;
-    // if (!image) {
-    //     const error = new Error('Please upload a file')
-    //     error.httpStatusCode = 400
-    //     return next(error)
-   // }
     console.log("name-> ", name);
     console.log("image-> ", image)
     res.send("done");

@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer')
 const uuidv1 = require('uuid/v1');
 const path = require("path");
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const routes = require("./routes/api");
 const app = express();
 //////////preparing multer 
@@ -11,7 +13,7 @@ const fileStorage = multer.diskStorage({
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
-        console.log("filename->",uuidv1() + '-' + file.originalname)
+        console.log("filename->", uuidv1() + '-' + file.originalname)
         cb(null, uuidv1() + '-' + file.originalname);
     }
 });
@@ -28,6 +30,22 @@ const fileFilter = (req, file, cb) => {
     }
 };
 //////////////////////////////
+
+//////////////////////////////
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: new FileStore,
+    cookie: { maxAge: 3600000, secure: false, httpOnly: true }
+})
+);
+
+app.use((req, res, next) => {
+    console.log("*****************************");
+    next();
+})
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
